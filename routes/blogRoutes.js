@@ -12,6 +12,11 @@ router.get('/create', blogController.blogCreateGet);
 
 router.get('/:id', blogController.blogDetails);
 
+// New shit
+router.get('/update/:id', blogController.blogUpdateGet);
+
+router.post('/update/:id', blogController.blogUpdatePost);
+
 router.delete( '/:id', blogController.blogDelete);
 
 module.exports = router;

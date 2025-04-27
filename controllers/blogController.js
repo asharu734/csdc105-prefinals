@@ -52,10 +52,52 @@ const blogDelete = (req,res) => {
     
 }
 
+// New shit
+const blogUpdateGet = (req, res) => {
+    const { Types } = require('mongoose');
+    const id = new Types.ObjectId(req.params.id);
+    Blog.findById(id)
+        .then(result =>
+        {
+            if (result) {
+                res.render('blogs/update', {blog: result, title: 'Update Blog'});
+            }
+
+            else {
+                res.status(404).render('404', {title: 'Not found'})
+            }
+        }
+        )
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Server error HAHAHAHAHA');
+        });
+}
+
+const blogUpdatePost = (req, res) => {
+    const { Types } = require('mongoose');
+    const id = new Types.ObjectId(req.params.id);
+    Blog.findByIdAndUpdate(id, req.body, {new: true, runValidators: true})
+        .then(result => {
+            if (result) {
+                res.redirect(`/blogs/${id}`);
+            }
+            else {
+                res.status(404).render('404', {title: 'Blog unfound'});
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Server err');
+        });
+}
+
 module.exports = {
     blogIndex,
     blogDetails,
     blogCreateGet,
     blogCreatePost,
-    blogDelete
+    blogDelete,
+    blogUpdateGet,
+    blogUpdatePost
 }

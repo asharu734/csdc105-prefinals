@@ -11,7 +11,8 @@
         </div>
         <a class="delete" data-doc="<%= blog.id %>">
             <img src="/trashcan.svg" alt="Delete">
-        </a> 
+        </a>
+        <a class="update" href="/blogs/update/<%= blog._id %>">Edit</a>
     </div>
 
     <%- include("../partials/footer.ejs") %>
